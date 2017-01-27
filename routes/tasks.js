@@ -1,16 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://127.0.0.1:27017/mytasklist',['tasks']);
+var db = mongojs('mongodb://test1:test1@ds163718.mlab.com:63718/cferrerdb',['tasks']);
 
+var request = require('request');
+
+var sUrl = 'https://api.mlab.com/api/1/databases/cferrerdb/collections/tasks?apiKey=yaHRmnujm_qQwp3OSRuJJ8l4vPMyMvZF'
 // Get All Tasks
 router.get('/tasks', function(req, res, next){
-    db.tasks.find(function(err, tasks){
-        if(err){
-            res.send(err);
+    request(sUrl, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body) // Show the HTML for the Google homepage.
+            res.json(body);
+        }else{
+            console.log(error) // Show the HTML for the Google homepage.
         }
-        res.json(tasks);
     });
+    //
+    
 });
 
 // Get Single Task
