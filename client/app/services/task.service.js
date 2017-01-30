@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
+var sUrl = 'https://api.mlab.com/api/1/databases/cferrerdb/collections/tasks?apiKey=yaHRmnujm_qQwp3OSRuJJ8l4vPMyMvZF';
 var TaskService = (function () {
     function TaskService(http) {
         this.http = http;
@@ -18,6 +19,19 @@ var TaskService = (function () {
     }
     TaskService.prototype.getTasks = function () {
         return this.http.get('/api/tasks')
+            .map(function (res) { return res.json(); });
+    };
+    TaskService.prototype.addTask = function (newTask) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(sUrl, JSON.stringify(newTask), { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    TaskService.prototype.deleteTask = function (id) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        console.log('Task befor delting !!' + id);
+        return this.http.delete(sUrl.replace('?', '/' + id + '?'), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     return TaskService;

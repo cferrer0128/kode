@@ -20,6 +20,34 @@ var TasksComponent = (function () {
             console.log(_this.tasks);
         });
     }
+    //add
+    TasksComponent.prototype.addTask = function (event) {
+        var _this = this;
+        event.preventDefault();
+        var newTask = {
+            Title: this.title,
+            isdone: false
+        };
+        //calling the service....
+        this.taskservice.addTask(newTask)
+            .subscribe(function (task) {
+            console.log('before saving ' + task);
+            _this.tasks.push(task);
+        });
+    };
+    //delete task...
+    TasksComponent.prototype.deleteTask = function (id) {
+        var tasks = this.tasks;
+        this.taskservice.deleteTask(id.$oid)
+            .subscribe(function (data) {
+            if (data)
+                for (var i = 0; i < tasks.length; i++) {
+                    if (tasks[i]._id.$oid == id.$oid) {
+                        tasks.splice(i, 1);
+                    }
+                }
+        });
+    };
     return TasksComponent;
 }());
 TasksComponent = __decorate([
