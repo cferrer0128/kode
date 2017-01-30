@@ -20,7 +20,7 @@ export class TasksComponent{
 
                this.tasks = JSON.parse(mytask);
 
-            console.log(this.tasks );
+           // console.log(this.tasks );
 
         });
     }
@@ -52,5 +52,18 @@ export class TasksComponent{
                         }
                 })
 
+        }
+        //update Task
+        updateTask(task){
+             console.log('before updating ' + task)
+            var _task = {
+                Title:task.Title,
+                _id:task._id,
+                isdone:!task.isdone
+            };
+            this.taskservice.updateTask(_task)
+            .subscribe(data =>{
+                task.isdone = !task.isdone;
+            })
         }
 }

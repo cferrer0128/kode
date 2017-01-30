@@ -34,6 +34,13 @@ var TaskService = (function () {
         return this.http.delete(sUrl.replace('?', '/' + id + '?'), { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    TaskService.prototype.updateTask = function (task) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        console.log('Task befor upding !!' + JSON.stringify(task));
+        return this.http.put(sUrl.replace('?', '/' + task._id.$oid + '?'), JSON.stringify(task), { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     return TaskService;
 }());
 TaskService = __decorate([

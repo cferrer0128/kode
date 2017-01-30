@@ -17,7 +17,7 @@ var TasksComponent = (function () {
         this.taskservice.getTasks()
             .subscribe(function (mytask) {
             _this.tasks = JSON.parse(mytask);
-            console.log(_this.tasks);
+            // console.log(this.tasks );
         });
     }
     //add
@@ -46,6 +46,19 @@ var TasksComponent = (function () {
                         tasks.splice(i, 1);
                     }
                 }
+        });
+    };
+    //update Task
+    TasksComponent.prototype.updateTask = function (task) {
+        console.log('before updating ' + task);
+        var _task = {
+            Title: task.Title,
+            _id: task._id,
+            isdone: !task.isdone
+        };
+        this.taskservice.updateTask(_task)
+            .subscribe(function (data) {
+            task.isdone = !task.isdone;
         });
     };
     return TasksComponent;
