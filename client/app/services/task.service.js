@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var sUrl = 'https://api.mlab.com/api/1/databases/cferrerdb/collections/tasks?apiKey=yaHRmnujm_qQwp3OSRuJJ8l4vPMyMvZF';
 var TaskService = (function () {
     function TaskService(http) {
         this.http = http;
@@ -24,21 +23,23 @@ var TaskService = (function () {
     TaskService.prototype.addTask = function (newTask) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(sUrl, JSON.stringify(newTask), { headers: headers })
+        return this.http.post('api/task', JSON.stringify(newTask), { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    TaskService.prototype.deleteTask = function (id) {
+    TaskService.prototype.deleteTask = function (task) {
+        console.log('Task befor delting !!' + JSON.stringify(task));
+        task.isdeleted = true;
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        console.log('Task befor delting !!' + id);
-        return this.http.delete(sUrl.replace('?', '/' + id + '?'), { headers: headers })
+        return this.http.put('/api/task/' + task._id.$oid, JSON.stringify(task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.updateTask = function (task) {
+        task.isdeleted = false;
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         console.log('Task befor upding !!' + JSON.stringify(task));
-        return this.http.put(sUrl.replace('?', '/' + task._id.$oid + '?'), JSON.stringify(task), { headers: headers })
+        return this.http.put('/api/task/' + task._id.$oid, JSON.stringify(task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     return TaskService;

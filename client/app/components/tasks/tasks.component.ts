@@ -40,22 +40,29 @@ export class TasksComponent{
 
         }
         //delete task...
-        deleteTask(id){
+        deleteTask(task){
+            task.isdeleted = true;
             var tasks = this.tasks;
-                this.taskservice.deleteTask(id.$oid)
+                this.taskservice.deleteTask(task)
                 .subscribe(data =>{
-                    if(data)
-                        for(var i = 0;i<tasks.length; i++){
-                            if(tasks[i]._id.$oid == id.$oid){
-                                tasks.splice(i, 1);
-                             }
+                  
+                  for(var i=0; i<tasks.length;i++){
+                        if(tasks[i]._id.$oid == data._id.$oid){
+                            
+                            console.log('Delete task... ' + JSON.stringify(tasks[i]))
+                 
+                                 tasks.splice(i,1);
                         }
+                           
+                  }
+                    
+                        
                 })
 
         }
         //update Task
         updateTask(task){
-             console.log('before updating ' + task)
+            // console.log('before updating ' + task)
             var _task = {
                 Title:task.Title,
                 _id:task._id,
