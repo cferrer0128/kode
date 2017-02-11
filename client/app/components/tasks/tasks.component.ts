@@ -47,7 +47,7 @@ export class TasksComponent{
                 .subscribe(data =>{
                   
                   for(var i=0; i<tasks.length;i++){
-                        if(tasks[i]._id.$oid == data._id.$oid){
+                        if(tasks[i]._id == data._id.$oid){
                             
                             console.log('Delete task... ' + JSON.stringify(tasks[i]))
                  
