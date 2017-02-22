@@ -52,7 +52,6 @@ var FlightDetailComponent = (function () {
                         year: _this.newDepartDate.getFullYear(), month: _this.newDepartDate.getMonth() + 1, day: _this.newDepartDate.getDate()
                     }
                 };
-                console.log(_this.model);
                 _this.flight = data;
             }
         });

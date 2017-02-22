@@ -37,14 +37,15 @@ var TasksComponent = (function () {
     };
     //delete task...
     TasksComponent.prototype.deleteTask = function (task) {
+        var _this = this;
         task.isdeleted = true;
-        var tasks = this.tasks;
         this.taskservice.deleteTask(task)
             .subscribe(function (data) {
-            for (var i = 0; i < tasks.length; i++) {
-                if (tasks[i]._id == data._id.$oid) {
-                    console.log('Delete task... ' + JSON.stringify(tasks[i]));
-                    tasks.splice(i, 1);
+            console.log('Delete task... ' + JSON.stringify(data));
+            for (var i = 0; i < _this.tasks.length; i++) {
+                if (_this.tasks[i]._id.$oid == data._id.$oid) {
+                    console.log('Delete task... ' + JSON.stringify(_this.tasks[i]));
+                    _this.tasks.splice(i, 1);
                 }
             }
         });

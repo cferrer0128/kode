@@ -10,7 +10,7 @@ import { Task } from '../../../Task'
 })
 
 export class TasksComponent{
-    tasks: Task[];
+    tasks: any;
     title: string;
     
     constructor (private taskservice:TaskService){
@@ -42,16 +42,17 @@ export class TasksComponent{
         //delete task...
         deleteTask(task){
             task.isdeleted = true;
-            var tasks = this.tasks;
+           
                 this.taskservice.deleteTask(task)
                 .subscribe(data =>{
-                  
-                  for(var i=0; i<tasks.length;i++){
-                        if(tasks[i]._id == data._id.$oid){
+                  console.log('Delete task... ' + JSON.stringify(data));
+
+                  for(var i=0; i<this.tasks.length;i++){
+                        if(this.tasks[i]._id.$oid == data._id.$oid){
                             
-                            console.log('Delete task... ' + JSON.stringify(tasks[i]))
+                            console.log('Delete task... ' + JSON.stringify(this.tasks[i]))
                  
-                                 tasks.splice(i,1);
+                                 this.tasks.splice(i,1);
                         }
                            
                   }

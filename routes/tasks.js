@@ -105,7 +105,7 @@ router.delete('/task/:id', function(req, res, next){
 // Update Task
 router.put('/task/:id', function(req, res, next){
     var task = req.body;
-      console.log(req.body);
+      console.log('Put method ' + JSON.stringify(req.body));
       
     if(!task){
         res.status(400);

@@ -68,7 +68,7 @@ export class FlightDetailComponent implements OnInit {
                         year:this.newDepartDate.getFullYear(),month:this.newDepartDate.getMonth()+1,day:this.newDepartDate.getDate()
                     }
                 }
-                 console.log(this.model);
+               
 
                  this.flight = data;
            }
