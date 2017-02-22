@@ -8,4 +8,11 @@ import { TaskService } from '../../services/task.service'
     providers:[TaskService]
 })
 
-export class HomeComponent{home=" Home"}
+export class HomeComponent{
+    home=" Home";
+    constructor (){
+        console.log('Home service has been Initialized!!');
+    }
+
+
+}

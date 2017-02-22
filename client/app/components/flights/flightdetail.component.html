@@ -1,0 +1,78 @@
+
+<div class="row">
+         <div class="col-md-12">
+                <div class="panel panel-Info" *ngIf="flight">
+                        <div class="panel-heading"><h2>Flight</h2></div>
+                        <div class="panel-body">
+                                 <div class="row">
+                                        <div class="col-md-5">
+                                                <h2>Crew  Detail</h2>
+                                                <input type="text" class="form-control" id="pilot-name" style="width:269px" value="{{flight.crewpilot}}" >
+                                                <br>
+                                                <input type="text" class="form-control" id="copilot-name" style="width:269px" value="{{flight.crewcopilot}}">
+                                        
+                                        </div>
+                                         <div class="col-md-5">
+                                                <h2>AirCraft  Detail</h2>
+                                                <input type="text" class="form-control" id="aircraft-name" style="width:269px"  value="{{flight.aircraft}}" >
+                                                <br>
+                                                <input type="text" class="form-control" id="aircraft-model" style="width:269px"  value="{{flight.model}}"  >
+                                        
+                                        </div>
+                                        
+                                </div>
+                                <div class="row">
+                                        <div class="col-md-5  panel-Info">
+                                                <h2>Start Date</h2>
+                                        <my-date-picker [options]="myDatePickerOptions" ng-value="flight.datedepa"
+                                                (dateChanged)="onDateChanged($event)"
+                                                [(ngModel)]="newArriveDate"></my-date-picker>
+                                        </div>
+                                        <div class="col-md-5  panel-Info">
+                                                <h2>End Date</h2>
+                                        <my-date-picker [options]="myDatePickerOptions" ng-value="flight.datearrive"
+                                                (dateChanged)="onDateChanged($event)"
+                                                [(ngModel)]="newDepartDate"></my-date-picker>
+                                        </div>
+                                 </div>
+                              
+                        </div>
+                </div>
+        </div>
+</div>
+
+<div class="row">
+         <div class="col-md-7">
+                
+                        <div class="panel panel-success" *ngIf="flight">
+                        <div class="panel-heading"><h2>Passengers ( {{flight.passengers.length}} )</h2></div>
+                        <div class="panel-body"   *ngFor="let passenger of flight.passengers let i = index" >Name: {{passenger.name}}  Seat: {{passenger.seat}} </div>
+                        </div>
+                
+                 
+                        <div class="panel panel-default" *ngIf="flight">
+                        <div class="panel-heading"><h2>Notes ( {{flight.notes.length}} )</h2></div>
+                        <div class="panel-body" *ngFor="let note of flight.notes let i = index" >{{note.note_name}}</div>
+                        </div>
+        
+                
+        </div>
+
+        <div class="col-md-5">
+              
+                <div class="panel panel-default">
+                <div class="panel-heading"><h2>Messages (  )</h2></div>
+                <div class="panel-body" >Messages</div>
+                </div>
+                
+                
+        </div>
+
+</div>
+
+<div class="row">
+         <div class="col-md-10">
+                        <input type="button" (click)="deleteFlight(flight)" value="Book Flight" class="btn btn-default">    
+       
+        </div>
+</div>

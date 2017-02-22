@@ -1,0 +1,25 @@
+
+<h1>Flight List
+    
+</h1>
+<div class="task-list">
+      <div *ngFor="let flight of flights let i = index" style="margin-top:3px;">
+        
+        <div class="col-md-1">
+            <span>{{flight.Id}}</span>
+        </div>
+        <div class="col-md-5">
+            {{flight.description}}    
+        </div> 
+       <div class="col-md-3">
+         
+            <input type="button" (click)="goFlight(flight.Id)" value="...." class="btn btn-default">    
+   
+        </div>
+         <div class="col-md-3">
+            <input type="button" (click)="deleteFlight(flight)" value="Delete" class="btn btn-danger">    
+        </div>
+        <br><br>
+      </div>
+</div>
+

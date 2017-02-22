@@ -1,0 +1,42 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+require("rxjs/add/operator/map");
+var FlightService = (function () {
+    function FlightService(http) {
+        this.http = http;
+        this.myFlights = [
+            { Id: 1, description: 'description 1' },
+            { Id: 2, description: 'description 2' },
+            { Id: 3, description: 'description 3' },
+            { Id: 4, description: 'description 4' },
+        ];
+        console.log('Flight service has been Initialized!!');
+    }
+    FlightService.prototype.getFlights = function () {
+        //return this.myFlights;
+        return this.http.get('./data.json')
+            .map(function (res) { return res.json().flights; });
+    };
+    FlightService.prototype.getFlight = function (Id) {
+        //return this.myFlights.find(flight => flight.Id.toString() === Id);
+        return this.http.get('./data.json')
+            .map(function (res) { return res.json().flights.find(function (flight) { return flight.Id == Id; }); });
+    };
+    return FlightService;
+}());
+FlightService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], FlightService);
+exports.FlightService = FlightService;
+//# sourceMappingURL=flight.service.js.map

@@ -1,27 +1,30 @@
-import {ModuleWithProviders} from '@angular/core';
 
-import {Routes , RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule , Routes} from '@angular/router';
 
-import { TasksComponent } from './components/tasks/tasks.component';
+import { AppComponent } from './app.component'
 
-import { HomeComponent } from './components/home/home.component';
+import {FlightDetailComponent} from './components/flights/flightdetail.component';
 
-import { AppComponent } from './app.component';
+import {FlightComponent} from './components/flights/flight.component';
 
+import {TasksComponent} from './components/tasks/tasks.component';
 
-const appRoutes: Routes = [
-    {
-        path:'',
-        component:HomeComponent
-    },
-    {
-        path:'tasks',
-        component:TasksComponent
+import {HomeComponent} from './components/home/home.component';
 
-    }
+const routes:Routes = [
+    {path:'',redirectTo:'/home',pathMatch:'full'},
+    {path:'detail/:id',component:FlightDetailComponent},
+    {path:'flights',component:FlightComponent},
+    {path:'tasks',component:TasksComponent},
+    {path:'home',component:HomeComponent}
+
+    
 ];
 
-export const appRoutingProviders: any[] =[];
+@NgModule({
+    imports:[RouterModule.forRoot(routes)],
+    exports:[RouterModule]
+})
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
-
+export class AppRoutingModule {}
