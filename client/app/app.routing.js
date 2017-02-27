@@ -14,6 +14,7 @@ var home_component_1 = require("./components/home/home.component");
 var routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'detail/:id', component: flightdetail_component_1.FlightDetailComponent },
+    { path: 'add', component: flightdetail_component_1.FlightDetailComponent },
     { path: 'flights', component: flight_component_1.FlightComponent },
     { path: 'tasks', component: tasks_component_1.TasksComponent },
     { path: 'home', component: home_component_1.HomeComponent }

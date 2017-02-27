@@ -17,6 +17,7 @@ var FlightDetailComponent = (function () {
         this.flightservice = flightservice;
         this.activatedRoute = activatedRoute;
         this.router = router;
+        this.isNew = true;
         this.myDatePickerOptions = {
             // other options...
             dateFormat: 'mm/dd/yyyy',
@@ -30,16 +31,42 @@ var FlightDetailComponent = (function () {
     FlightDetailComponent.prototype.goFlights = function () {
         this.router.navigate(['/flights']);
     };
+    FlightDetailComponent.prototype.addPassanager = function (event) {
+        event.preventDefault();
+        this.newflight.passengers.push({
+            name: this.name, seat: this.seat
+        });
+    };
+    FlightDetailComponent.prototype.addNotes = function (event) {
+        event.preventDefault();
+        this.newflight.notes.push({
+            note: this.note, noteDT: new Date()
+        });
+    };
+    FlightDetailComponent.prototype.addFlight = function (event) {
+        var _this = this;
+        event.preventDefault();
+        this.flightservice.getFlights()
+            .subscribe(function (res) { return _this.flights = res; }, function (error) { return console.log(error); });
+    };
     FlightDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         // subscribe to router event
         this.activatedRoute.params.subscribe(function (params) {
             _this.id = +params['id'];
+            if (params['id'])
+                _this.isNew = false;
+            else {
+                _this.flight = {};
+                _this.newflight = {
+                    passengers: [],
+                    notes: []
+                };
+            }
         });
         this.flightservice.getFlight(this.id)
             .subscribe(function (data) {
             if (data) {
-                console.log(data);
                 _this.newDepartDate = new Date(data.datedepa);
                 _this.newArriveDate = new Date(data.datearrive);
                 _this.newArriveDate = {

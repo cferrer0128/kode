@@ -15,6 +15,7 @@ import {HomeComponent} from './components/home/home.component';
 const routes:Routes = [
     {path:'',redirectTo:'/home',pathMatch:'full'},
     {path:'detail/:id',component:FlightDetailComponent},
+    {path:'add',component:FlightDetailComponent},
     {path:'flights',component:FlightComponent},
     {path:'tasks',component:TasksComponent},
     {path:'home',component:HomeComponent}

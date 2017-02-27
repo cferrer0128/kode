@@ -5,18 +5,35 @@
                         <div class="panel-heading"><h2>Flight</h2></div>
                         <div class="panel-body">
                                  <div class="row">
-                                        <div class="col-md-5">
+                                        <div class="col-md-5" *ngIf="!isNew">
                                                 <h2>Crew  Detail</h2>
-                                                <input type="text" class="form-control" id="pilot-name" style="width:269px" value="{{flight.crewpilot}}" >
+                                                <span class="form-control" id="pilot-name" style="width:269px">{{flight.crewpilot}}</span>
                                                 <br>
-                                                <input type="text" class="form-control" id="copilot-name" style="width:269px" value="{{flight.crewcopilot}}">
+                                                <span class="form-control" id="copilot-name" style="width:269px">{{flight.crewcopilot}}</span>
                                         
                                         </div>
-                                         <div class="col-md-5">
-                                                <h2>AirCraft  Detail</h2>
-                                                <input type="text" class="form-control" id="aircraft-name" style="width:269px"  value="{{flight.aircraft}}" >
+
+                                         <div class="col-md-5" *ngIf="isNew">
+                                                <h2>Crew  Detail</h2>
+                                                
+                                                Pilot:<input type="text" class="form-control"  [(ngModel)]="pilotname" style="width:269px"   >
                                                 <br>
-                                                <input type="text" class="form-control" id="aircraft-model" style="width:269px"  value="{{flight.model}}"  >
+                                                Co-Pilot:<input type="text" class="form-control" [(ngModel)]="copilotname" style="width:269px" >
+                                        
+                                        </div>
+                                          
+                                         <div class="col-md-5" *ngIf="!isNew">
+                                                <h2>AirCraft  Detail</h2>
+                                                <span class="form-control" id="aircraft-name" style="width:269px">{{flight.aircraft}}</span>
+                                                <br>
+                                                <span class="form-control" id="aircraft-model" style="width:269px">{{flight.model}}</span>
+                                        
+                                        </div>
+                                         <div class="col-md-5" *ngIf="isNew">
+                                                <h2>AirCraft  Detail</h2>
+                                                AirCraft Name:<input type="text" class="form-control" [(ngModel)]="aircraftname" style="width:269px"   >
+                                                <br>
+                                                AirCraft-Model<input type="text" class="form-control" [(ngModel)]="aircraftmodel" style="width:269px"   >
                                         
                                         </div>
                                         
@@ -41,19 +58,95 @@
         </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="flight"> 
          <div class="col-md-7">
                 
-                        <div class="panel panel-success" *ngIf="flight">
-                        <div class="panel-heading"><h2>Passengers ( {{flight.passengers.length}} )</h2></div>
-                        <div class="panel-body"   *ngFor="let passenger of flight.passengers let i = index" >Name: {{passenger.name}}  Seat: {{passenger.seat}} </div>
+                        <div class="panel panel-default" *ngIf="!isNew">
+                                <div class="panel-heading"><h2>Passengers ( {{flight.passengers.length}} )</h2></div>
+                                <div class="panel-body"   
+                                *ngFor="let passenger of flight.passengers let i = index" >
+                        
+                                        <div class="col-md-5" *ngIf="!isNew">
+                                                                                              
+                                                <span   style="width:269px">Name:{{passenger.name}}</span>
+                                               
+                                                <br>
+                                                 
+                                                <span  style="width:269px">Seat: {{passenger.seat}}</span>
+                                        
+                                        </div>
+                                         
+
+                                </div>
+                        </div>
+                        <div class="panel panel-default" *ngIf="!isNew">
+                                <div class="panel-heading"><h2>Notes ( {{flight.notes.length}} )</h2></div>
+                                <div class="panel-body"   
+                                *ngFor="let note of flight.notes let i = index" >
+                        
+                                        <div class="col-md-5" *ngIf="!isNew">
+                                                                                              
+                                                <span   style="width:269px">Name:{{note.note_name}}</span>
+                                             
+                                        </div>
+                                         
+
+                                </div>
+                        </div>
+
+                         <div class="panel panel-default" *ngIf="isNew">
+                                <div class="panel-heading"><h2>Passengers</h2></div>
+                                <div class="panel-body">
+                                        <table class="table">
+                                                <thead>
+                                                <tr>
+                                                        <th>#</th>
+                                                        <th>Name</th>
+                                                        <th>Seat</th>
+                                                        
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let passenger of newflight.passengers let i = index">
+                                                        <td>{{i+1}}</td>
+                                                        <td><span   style="width:269px">{{passenger.name}}</span>
+                                                                </td>
+                                                         <td><span   style="width:269px">{{passenger.seat}}</span>
+                                                                </td>
+                                                </tr>
+                                                </tbody>
+                                        </table>
+
+                                </div>
+                                  <form class="well" >
+                                                Name:<input type="text" [(ngModel)]="name"  name="name" class="form-control" placeholder="Add Passenger Name">
+                                                Seat:<input type="text" [(ngModel)]="seat"  name="seat" class="form-control" placeholder="Add Passenger Seat">
+                                                <input type="button" (click)="addPassanager($event)" value="Add Passenger" class="btn btn-default">    
+
+                                        </form> 
                         </div>
                 
-                 
-                        <div class="panel panel-default" *ngIf="flight">
-                        <div class="panel-heading"><h2>Notes ( {{flight.notes.length}} )</h2></div>
-                        <div class="panel-body" *ngFor="let note of flight.notes let i = index" >{{note.note_name}}</div>
+                        <div class="panel panel-default" *ngIf="isNew">
+                                <div class="panel-heading"><h2>Notes </h2></div>
+                                <div class="panel-body" >
+                                         <table class="table">
+                                                
+                                               
+                                                <tr *ngFor="let note of newflight.notes let i = index">
+                                                      
+                                                        <td><span   style="width:269px">{{note.note}}    {{note.noteDT}}</span>
+                                                        </td>
+                                                       
+                                                </tr>
+                                                
+                                        </table>
+                                </div>
+                                <form class="well" (submit)="addNotes($event)">
+                                                Note:<input type="text" [(ngModel)]="note"  name="note" class="form-control" placeholder="Add Note">
+                                           
+                                        </form> 
                         </div>
+                        
         
                 
         </div>
@@ -72,7 +165,7 @@
 
 <div class="row">
          <div class="col-md-10">
-                        <input type="button" (click)="deleteFlight(flight)" value="Book Flight" class="btn btn-default">    
+                        <input type="button" (click)="addFlight($event)" value="Book Flight" class="btn btn-info">    
        
         </div>
 </div>

@@ -1,7 +1,12 @@
 
-<h1>Flight List
-    
-</h1>
+
+<div class="row" >
+         <div class="col-md-10">
+                        <input type="button" (click)="goNewFlight()" value="Add Flight" class="btn btn-primary">    
+       
+        </div>
+</div>
+
 <div class="task-list">
       <div *ngFor="let flight of flights let i = index" style="margin-top:3px;">
         
@@ -21,5 +26,8 @@
         </div>
         <br><br>
       </div>
+
+       
+
 </div>
 

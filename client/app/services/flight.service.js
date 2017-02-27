@@ -10,27 +10,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-require("rxjs/add/operator/map");
+var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/observable/of");
+require("rxjs/add/operator/publishReplay");
 var FlightService = (function () {
-    function FlightService(http) {
-        this.http = http;
-        this.myFlights = [
-            { Id: 1, description: 'description 1' },
-            { Id: 2, description: 'description 2' },
-            { Id: 3, description: 'description 3' },
-            { Id: 4, description: 'description 4' },
-        ];
+    function FlightService(_http) {
+        this._http = _http;
+        this._flights = null;
         console.log('Flight service has been Initialized!!');
     }
     FlightService.prototype.getFlights = function () {
         //return this.myFlights;
-        return this.http.get('./data.json')
-            .map(function (res) { return res.json().flights; });
+        if (!this._flights) {
+            this._flights = this._http.get('./data.json')
+                .map(function (res) { return res.json().flights; });
+            Observable_1.Observable.of(this._flights);
+        }
+        else {
+            Observable_1.Observable.of(this._flights);
+        }
+        return this._flights;
     };
     FlightService.prototype.getFlight = function (Id) {
         //return this.myFlights.find(flight => flight.Id.toString() === Id);
-        return this.http.get('./data.json')
-            .map(function (res) { return res.json().flights.find(function (flight) { return flight.Id == Id; }); });
+        if (!this._flights) {
+            console.log('from null object in service!!!');
+            return this._http.get('./data.json')
+                .map(function (res) { return res.json().flights.find(function (flight) { return flight.Id == Id; }); });
+        }
+        else {
+            console.log('from cache object in service!!!');
+            return this._http.get('./data.json')
+                .map(function (res) { return res.json().flights.find(function (flight) { return flight.Id == Id; }); });
+        }
     };
     return FlightService;
 }());

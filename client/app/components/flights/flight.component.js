@@ -16,15 +16,19 @@ var FlightComponent = (function () {
         this.flightservice = flightservice;
         this.router = router;
     }
-    FlightComponent.prototype.ngOnInit = function () {
+    FlightComponent.prototype.loadData = function () {
         var _this = this;
         this.flightservice.getFlights()
-            .subscribe(function (data) {
-            _this.flights = data;
-        });
+            .subscribe(function (res) { return _this.flights = res; }, function (error) { return console.log(error); });
+    };
+    FlightComponent.prototype.ngOnInit = function () {
+        this.loadData();
     };
     FlightComponent.prototype.goFlight = function (id) {
         this.router.navigate(['/detail', id]);
+    };
+    FlightComponent.prototype.goNewFlight = function () {
+        this.router.navigate(['/add']);
     };
     return FlightComponent;
 }());

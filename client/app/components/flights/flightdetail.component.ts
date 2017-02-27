@@ -18,7 +18,16 @@ export class FlightDetailComponent implements OnInit {
     id: any;
     newDepartDate:any;
     newArriveDate:any;
-   
+    isNew:any = true;
+    name:string;
+    seat:string;
+    newflight:any;
+    note:string;
+    noteDT:Date;
+    flights:any;
+    pilotname:any;
+    copilotname:any;
+
  private myDatePickerOptions: IMyOptions = {
         // other options...
         dateFormat: 'mm/dd/yyyy',
@@ -42,10 +51,54 @@ export class FlightDetailComponent implements OnInit {
            this.router.navigate(['/flights']);
     }
 
+    addPassanager(event){
+         event.preventDefault();
+               this.newflight.passengers.push({
+                    name:this.name , seat:this.seat
+                })
+
+          
+            
+    }
+    addNotes(event){
+         event.preventDefault();
+         
+                this.newflight.notes.push({
+                    note:this.note , noteDT:new Date()
+                })
+
+          
+            
+    }
+
+     addFlight(event){
+         event.preventDefault();
+
+          this.flightservice.getFlights()
+         .subscribe(res =>this.flights = res,
+                    error => console.log(error));
+         
+                       
+            
+    }
+
  ngOnInit() {
     // subscribe to router event
     this.activatedRoute.params.subscribe((params: Params) => {
         this.id = +params['id'];
+        if(params['id']) this.isNew = false;
+        else{
+            this.flight ={
+               
+            };
+              this.newflight = {
+                passengers: [],
+                notes:[]
+            };
+
+        }
+        
+
         
       });
 
@@ -53,7 +106,7 @@ export class FlightDetailComponent implements OnInit {
         .subscribe(data =>{
            
            if(data){
-                console.log(data);
+               
               
                 this.newDepartDate = new Date(data.datedepa);
                 this.newArriveDate = new Date(data.datearrive)

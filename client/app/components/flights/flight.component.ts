@@ -19,18 +19,23 @@ export class FlightComponent implements OnInit{
     private router:Router){         
         
     }
-    ngOnInit(): void {
-         this.flightservice.getFlights()
-         .subscribe(data =>{
 
-             this.flights = data;
-             
-         })
-    
+     loadData(){
+          this.flightservice.getFlights()
+         .subscribe(res =>this.flights = res,
+                    error => console.log(error));
+  }
+
+    ngOnInit(): void {
+        this.loadData();
+
   }
 
     goFlight(id){
            this.router.navigate(['/detail', id]);
     }
 
+    goNewFlight(){
+           this.router.navigate(['/add']);
+    }
 }
