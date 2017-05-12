@@ -4,18 +4,37 @@
       </div>  
 </form>
 
+  <div *ngIf="!tasks">Loading Tasks...</div>
+
 <div class="task-list">
       <div *ngFor="let task of tasks" style="margin-top:3px;">
-        <div class="col-md-1">
-            <input type="checkbox" [checked]="task.isdone" (click)="updateTask(task)">
+          
+          <div *ngIf="task.isdone" style="background-color: #f1b6b6;">
+                <div class="col-md-1">
+                    <input type="checkbox" [checked]="task.isdone" (click)="updateTask(task)">
+                </div>
+                <div class="col-md-7">
+                    {{task.Title}}    
+                </div> 
+                <div class="col-md-4">
+                    <input type="button" (click)="deleteTask(task)" value="Delete" class="btn btn-danger">    
+                </div>
+                <br><br>
         </div>
-        <div class="col-md-7">
-            {{task.Title}}    
-        </div> 
-        <div class="col-md-4">
-            <input type="button" (click)="deleteTask(task)" value="Delete" class="btn btn-danger">    
+
+         <div *ngIf="!task.isdone" >
+                <div class="col-md-1">
+                    <input type="checkbox" [checked]="task.isdone" (click)="updateTask(task)">
+                </div>
+                <div class="col-md-7">
+                    {{task.Title}}    
+                </div> 
+                <div class="col-md-4">
+                    <input type="button" (click)="deleteTask(task)" value="Delete" class="btn btn-danger">    
+                </div>
+                <br><br>
         </div>
-        <br><br>
+
       </div>
 </div>
 

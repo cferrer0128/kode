@@ -12,7 +12,7 @@ var flight_component_1 = require("./components/flights/flight.component");
 var tasks_component_1 = require("./components/tasks/tasks.component");
 var home_component_1 = require("./components/home/home.component");
 var routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'detail/:id', component: flightdetail_component_1.FlightDetailComponent },
     { path: 'add', component: flightdetail_component_1.FlightDetailComponent },
     { path: 'flights', component: flight_component_1.FlightComponent },

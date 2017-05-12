@@ -1,6 +1,7 @@
 import {OnInit,  Component} from '@angular/core';
 //import { Component } from '@angular/core';
-import { FlightService } from '../../services/flight.service'
+import { FlightService } from '../../services/flight.service';
+
 import {Router, ActivatedRoute, Params} from '@angular/router';
 
 import {IMyOptions, IMyDateModel} from 'mydatepicker';
@@ -8,8 +9,8 @@ import {IMyOptions, IMyDateModel} from 'mydatepicker';
 @Component({
     moduleId:module.id,
     selector:'flightdetail',
-    templateUrl:'flightdetail.component.html',
-    providers:[FlightService]
+    templateUrl:'flightdetail.component.html'
+    
 })
 
 export class FlightDetailComponent implements OnInit {
@@ -65,7 +66,8 @@ export class FlightDetailComponent implements OnInit {
          
                 this.newflight.notes.push({
                     note:this.note , noteDT:new Date()
-                })
+                });
+                this.note = '';
 
           
             
@@ -106,7 +108,6 @@ export class FlightDetailComponent implements OnInit {
         .subscribe(data =>{
            
            if(data){
-               
               
                 this.newDepartDate = new Date(data.datedepa);
                 this.newArriveDate = new Date(data.datearrive)

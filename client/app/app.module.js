@@ -16,6 +16,7 @@ var tasks_component_1 = require("./components/tasks/tasks.component");
 var flight_component_1 = require("./components/flights/flight.component");
 var flightdetail_component_1 = require("./components/flights/flightdetail.component");
 var app_routing_1 = require("./app.routing");
+var flight_service_1 = require("./services/flight.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -28,7 +29,9 @@ AppModule = __decorate([
         declarations: [app_component_1.AppComponent, tasks_component_1.TasksComponent,
             home_component_1.HomeComponent, flight_component_1.FlightComponent, flightdetail_component_1.FlightDetailComponent],
         bootstrap: [app_component_1.AppComponent],
-        providers: []
+        providers: [
+            flight_service_1.FlightService
+        ]
     })
 ], AppModule);
 exports.AppModule = AppModule;

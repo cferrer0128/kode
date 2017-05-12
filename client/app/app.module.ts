@@ -15,6 +15,8 @@ import { FlightDetailComponent } from './components/flights/flightdetail.compone
 
 import {AppRoutingModule} from './app.routing';
 
+import { FlightService } from './services/flight.service'
+
 
 
 @NgModule({
@@ -24,7 +26,7 @@ import {AppRoutingModule} from './app.routing';
     HomeComponent , FlightComponent, FlightDetailComponent],
     bootstrap:[AppComponent],
     providers:[
-        
+        FlightService
     ]
 
 })

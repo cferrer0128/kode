@@ -42,6 +42,7 @@ var FlightDetailComponent = (function () {
         this.newflight.notes.push({
             note: this.note, noteDT: new Date()
         });
+        this.note = '';
     };
     FlightDetailComponent.prototype.addFlight = function (event) {
         var _this = this;
@@ -89,8 +90,7 @@ FlightDetailComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'flightdetail',
-        templateUrl: 'flightdetail.component.html',
-        providers: [flight_service_1.FlightService]
+        templateUrl: 'flightdetail.component.html'
     }),
     __metadata("design:paramtypes", [flight_service_1.FlightService,
         router_1.ActivatedRoute,

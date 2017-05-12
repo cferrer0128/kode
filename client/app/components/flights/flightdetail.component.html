@@ -134,7 +134,7 @@
                                                
                                                 <tr *ngFor="let note of newflight.notes let i = index">
                                                       
-                                                        <td><span   style="width:269px">{{note.note}}    {{note.noteDT}}</span>
+                                                        <td><span   style="width:269px">{{note.note}}   {{note.noteDT | date: 'MM/dd/yyyy HH:mm'}} </span>
                                                         </td>
                                                        
                                                 </tr>

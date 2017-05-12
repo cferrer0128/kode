@@ -10,24 +10,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/of");
 require("rxjs/add/operator/publishReplay");
 var FlightService = (function () {
     function FlightService(_http) {
         this._http = _http;
-        this._flights = null;
         console.log('Flight service has been Initialized!!');
     }
     FlightService.prototype.getFlights = function () {
-        //return this.myFlights;
         if (!this._flights) {
+            // ...using get request
             this._flights = this._http.get('./data.json')
                 .map(function (res) { return res.json().flights; });
-            Observable_1.Observable.of(this._flights);
         }
         else {
-            Observable_1.Observable.of(this._flights);
+            console.log('cache  flights!!!');
+        }
+        return this._flights;
+    };
+    FlightService.prototype.getFlightsOld = function () {
+        //return this.myFlights;
+        if (!this._flights) {
+            console.log('all flights!!!');
+            this._flights = this._http.get('./data.json')
+                .map(function (res) { return res.json().flights; });
+        }
+        else {
+            console.log('cache  flights!!!');
         }
         return this._flights;
     };

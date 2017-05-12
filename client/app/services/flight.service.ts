@@ -2,6 +2,7 @@
 import {Injectable} from '@angular/core';
 
 import {Http, Headers} from '@angular/http';
+
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of'
 import 'rxjs/add/operator/publishReplay';
@@ -11,7 +12,7 @@ import 'rxjs/add/operator/publishReplay';
 @Injectable()
 export class FlightService{
 
- _flights:Observable<any> = null;
+ private _flights;
 
  
 
@@ -19,21 +20,22 @@ export class FlightService{
         console.log('Flight service has been Initialized!!');
     }
 
-    getFlights(){
-        //return this.myFlights;
-        if(!this._flights){
-             this._flights = this._http.get('./data.json')
-                    .map(res =>res.json().flights);
-                    Observable.of(this._flights);
-        }
-        else{
-            Observable.of(this._flights);
-        }
-       return this._flights;
-       
-       
-    }
+getFlights(){
 
+     if(!this._flights){
+         // ...using get request
+         this._flights =  this._http.get('./data.json')
+                        // ...and calling .json() on the response to return data
+                           .map(res =>res.json().flights);
+     } 
+     else{
+             console.log('cache  flights!!!');
+           
+        }
+         return this._flights;             
+     }
+
+   
     getFlight(Id){
         
         //return this.myFlights.find(flight => flight.Id.toString() === Id);
@@ -45,8 +47,7 @@ export class FlightService{
            }
            else{
                    console.log('from cache object in service!!!');
-                  return this._http.get('./data.json')
-                    .map(res =>res.json().flights.find(flight => flight.Id == Id));
+                    return this._flights.find(flight => flight.Id == Id);
                     
            }
        

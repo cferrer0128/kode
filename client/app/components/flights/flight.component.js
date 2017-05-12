@@ -36,8 +36,7 @@ FlightComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'flight',
-        templateUrl: 'flight.component.html',
-        providers: [flight_service_1.FlightService]
+        templateUrl: 'flight.component.html'
     }),
     __metadata("design:paramtypes", [flight_service_1.FlightService,
         router_1.Router])
