@@ -36,7 +36,7 @@ export class TaskService{
           var headers = new Headers();
         headers.append('Content-Type','application/json');
         
-          return this.http.put('/api/task/'+task._id.$oid,JSON.stringify(task),{headers:headers})
+          return this.http.put('/api/task/'+task._id,JSON.stringify(task),{headers:headers})
             .map(res => res.json());
     }
 

@@ -16,7 +16,8 @@ var TasksComponent = (function () {
         this.taskservice = taskservice;
         this.taskservice.getTasks()
             .subscribe(function (mytask) {
-            _this.tasks = JSON.parse(mytask);
+            //console.log(mytask);
+            _this.tasks = mytask;
             // console.log(this.tasks );
         });
     }
@@ -41,7 +42,7 @@ var TasksComponent = (function () {
         task.isdeleted = true;
         this.taskservice.deleteTask(task)
             .subscribe(function (data) {
-            console.log('Delete task... ' + JSON.stringify(data));
+            //console.log('Delete task... ' + JSON.stringify(data));
             for (var i = 0; i < _this.tasks.length; i++) {
                 if (_this.tasks[i]._id.$oid == data._id.$oid) {
                     console.log('Delete task... ' + JSON.stringify(_this.tasks[i]));

@@ -28,18 +28,6 @@ var FlightService = (function () {
         }
         return this._flights;
     };
-    FlightService.prototype.getFlightsOld = function () {
-        //return this.myFlights;
-        if (!this._flights) {
-            console.log('all flights!!!');
-            this._flights = this._http.get('./data.json')
-                .map(function (res) { return res.json().flights; });
-        }
-        else {
-            console.log('cache  flights!!!');
-        }
-        return this._flights;
-    };
     FlightService.prototype.getFlight = function (Id) {
         //return this.myFlights.find(flight => flight.Id.toString() === Id);
         if (!this._flights) {
@@ -49,8 +37,7 @@ var FlightService = (function () {
         }
         else {
             console.log('from cache object in service!!!');
-            return this._http.get('./data.json')
-                .map(function (res) { return res.json().flights.find(function (flight) { return flight.Id == Id; }); });
+            return this._flights.find(function (flight) { return flight.Id == Id; });
         }
     };
     return FlightService;

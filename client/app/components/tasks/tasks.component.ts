@@ -18,7 +18,9 @@ export class TasksComponent{
         this.taskservice.getTasks()
         .subscribe(mytask =>{
 
-               this.tasks = JSON.parse(mytask);
+                //console.log(mytask);
+
+               this.tasks = mytask;
 
            // console.log(this.tasks );
 
@@ -45,7 +47,7 @@ export class TasksComponent{
            
                 this.taskservice.deleteTask(task)
                 .subscribe(data =>{
-                  console.log('Delete task... ' + JSON.stringify(data));
+                  //console.log('Delete task... ' + JSON.stringify(data));
 
                   for(var i=0; i<this.tasks.length;i++){
                         if(this.tasks[i]._id.$oid == data._id.$oid){
