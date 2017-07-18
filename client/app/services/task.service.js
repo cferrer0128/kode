@@ -22,24 +22,25 @@ var TaskService = (function () {
     };
     TaskService.prototype.addTask = function (newTask) {
         var headers = new http_1.Headers();
+        newTask.isdeleted = false;
         headers.append('Content-Type', 'application/json');
         return this.http.post('api/task', JSON.stringify(newTask), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.deleteTask = function (task) {
-        console.log('Task befor delting !!' + JSON.stringify(task));
         task.isdeleted = true;
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('/api/task/' + task._id.$oid, JSON.stringify(task), { headers: headers })
+        return this.http.delete('/api/task/' + task._id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.updateTask = function (task) {
         task.isdeleted = false;
+        console.log('Task before deleting' + JSON.stringify(task));
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         console.log('Task befor upding !!' + JSON.stringify(task));
-        return this.http.put('/api/task/' + task._id.$oid, JSON.stringify(task), { headers: headers })
+        return this.http.put('/api/task/' + task._id, JSON.stringify(task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     return TaskService;

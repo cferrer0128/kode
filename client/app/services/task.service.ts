@@ -21,31 +21,30 @@ export class TaskService{
 
     addTask(newTask){
         var headers = new Headers();
+        newTask.isdeleted = false;
         headers.append('Content-Type','application/json');
         return this.http.post('api/task',JSON.stringify(newTask),{headers:headers})
         .map(res => res.json());
     }
 
     deleteTask(task){
-
-        console.log('Task befor delting !!' + JSON.stringify(task));
-
-        task.isdeleted = true;
-
        
-          var headers = new Headers();
+        task.isdeleted = true;
+        
+        var headers = new Headers();
         headers.append('Content-Type','application/json');
         
-          return this.http.put('/api/task/'+task._id,JSON.stringify(task),{headers:headers})
+        return this.http.delete('/api/task/'+task._id,{headers:headers})
             .map(res => res.json());
     }
 
     updateTask(task){
         task.isdeleted = false;
+        console.log('Task before deleting' + JSON.stringify(task));
         var headers = new Headers();
         headers.append('Content-Type','application/json');
           console.log('Task befor upding !!' + JSON.stringify(task));
-          return this.http.put('/api/task/'+task._id.$oid,JSON.stringify(task),{headers:headers})
+          return this.http.put('/api/task/'+task._id,JSON.stringify(task),{headers:headers})
             .map(res => res.json());
     }
 }

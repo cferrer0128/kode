@@ -16,8 +16,13 @@ var TasksComponent = (function () {
         this.taskservice = taskservice;
         this.taskservice.getTasks()
             .subscribe(function (mytask) {
+            _this.tasks = [];
+            for (var i = 0; i < mytask.length; i++) {
+                //console.log(mytask[]);
+                if (!mytask[i].isdeleted)
+                    _this.tasks.push(mytask[i]);
+            }
             //console.log(mytask);
-            _this.tasks = mytask;
             // console.log(this.tasks );
         });
     }
@@ -40,11 +45,12 @@ var TasksComponent = (function () {
     TasksComponent.prototype.deleteTask = function (task) {
         var _this = this;
         task.isdeleted = true;
+        this.onetask = task;
         this.taskservice.deleteTask(task)
             .subscribe(function (data) {
             //console.log('Delete task... ' + JSON.stringify(data));
             for (var i = 0; i < _this.tasks.length; i++) {
-                if (_this.tasks[i]._id.$oid == data._id.$oid) {
+                if (_this.tasks[i]._id == _this.onetask._id) {
                     console.log('Delete task... ' + JSON.stringify(_this.tasks[i]));
                     _this.tasks.splice(i, 1);
                 }

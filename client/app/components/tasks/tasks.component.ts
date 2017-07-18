@@ -12,15 +12,21 @@ import { Task } from '../../../Task'
 export class TasksComponent{
     tasks: any;
     title: string;
-    
+    onetask:any;
     constructor (private taskservice:TaskService){
 
         this.taskservice.getTasks()
         .subscribe(mytask =>{
+            this.tasks =[];
+            for(var i=0; i<mytask.length;i++){
+                //console.log(mytask[]);
+                if(!mytask[i].isdeleted)
+                    this.tasks.push(mytask[i]);
 
+            }
                 //console.log(mytask);
 
-               this.tasks = mytask;
+               
 
            // console.log(this.tasks );
 
@@ -44,13 +50,13 @@ export class TasksComponent{
         //delete task...
         deleteTask(task){
             task.isdeleted = true;
-           
+            this.onetask = task;
                 this.taskservice.deleteTask(task)
                 .subscribe(data =>{
                   //console.log('Delete task... ' + JSON.stringify(data));
 
                   for(var i=0; i<this.tasks.length;i++){
-                        if(this.tasks[i]._id.$oid == data._id.$oid){
+                        if(this.tasks[i]._id == this.onetask._id){
                             
                             console.log('Delete task... ' + JSON.stringify(this.tasks[i]))
                  

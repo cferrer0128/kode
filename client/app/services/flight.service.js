@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/observable/of");
-require("rxjs/add/operator/publishReplay");
+require("rxjs/add/operator/find");
 var FlightService = (function () {
     function FlightService(_http) {
         this._http = _http;
@@ -37,7 +37,8 @@ var FlightService = (function () {
         }
         else {
             console.log('from cache object in service!!!');
-            return this._flights.find(function (flight) { return flight.Id == Id; });
+            return this._flights
+                .map(function (flights) { return flights.find(function (flight) { return flight.Id == Id; }); });
         }
     };
     return FlightService;

@@ -5,7 +5,7 @@ import {Http, Headers} from '@angular/http';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of'
-import 'rxjs/add/operator/publishReplay';
+import 'rxjs/add/operator/find';
 
 
 
@@ -47,7 +47,8 @@ getFlights(){
            }
            else{
                    console.log('from cache object in service!!!');
-                    return this._flights.find(flight => flight.Id == Id);
+                    return this._flights
+                     .map(flights => flights.find(flight => flight.Id == Id));
                     
            }
        

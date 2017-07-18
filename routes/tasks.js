@@ -9,7 +9,9 @@ router.get('/tasks', function(req, res, next){
         if(err){
             res.send(err);
         }
+        console.log(tasks);
         res.json(tasks);
+
     });
 });
 
@@ -26,7 +28,8 @@ router.get('/task/:id', function(req, res, next){
 //Save Task
 router.post('/task', function(req, res, next){
     var task = req.body;
-    if(!task.title || !(task.isDone + '')){
+    console.log('save task ' + JSON.stringify(req.body));
+    if(!task.Title){
         res.status(400);
         res.json({
             "error": "Bad Data"
@@ -43,8 +46,10 @@ router.post('/task', function(req, res, next){
 
 // Delete Task
 router.delete('/task/:id', function(req, res, next){
+    console.log('here delete '+req.params.id);
     db.tasks.remove({_id: mongojs.ObjectId(req.params.id)}, function(err, task){
         if(err){
+             console.log(err);
             res.send(err);
         }
         res.json(task);
@@ -54,25 +59,25 @@ router.delete('/task/:id', function(req, res, next){
 // Update Task
 router.put('/task/:id', function(req, res, next){
     var task = req.body;
-    var updTask = {};
+    var updTask = {
+        Title:task.Title,
+        isdone:task.isdone
+        
+    };
+    console.log('here put--> '+JSON.stringify(task));
     
-    if(task.isDone){
-        updTask.isDone = task.isDone;
-    }
-    
-    if(task.title){
-        updTask.title = task.title;
-    }
-    
-    if(!updTask){
+    if(!task){
         res.status(400);
         res.json({
             "error":"Bad Data"
         });
     } else {
+      
         db.tasks.update({_id: mongojs.ObjectId(req.params.id)},updTask, {}, function(err, task){
         if(err){
+            console.log(err);
             res.send(err);
+
         }
         res.json(task);
     });
