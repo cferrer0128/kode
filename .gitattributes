@@ -1,4 +1,6 @@
 # THIS IS ONLY FOR THE gitattributes REPOSITORY.
 # Handle line endings automatically for files detected as text
 # and leave all files detected as binary untouched.
-client/app/components/*.html linguist-vendored
+client/app/components/flights/*.html linguist-vendored
+client/app/components/home/*.html linguist-vendored
+client/app/components/tasks/*.html linguist-vendored
