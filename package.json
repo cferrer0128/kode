@@ -6,17 +6,18 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "body-parser": "^1.15.2",
+    "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
-    "ejs": "^2.5.5",
-    "express": "~4.14.0",
+    "debug": "^3.1.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
     "http": "0.0.0",
     "jade": "~1.11.0",
-    "mongojs": "^2.4.0",
+    "mongojs": "^2.6.0",
     "morgan": "~1.7.0",
-    "request": "^2.79.0",
+    "request": "^2.88.0",
     "require": "^2.4.20",
     "serve-favicon": "~2.3.0"
-  }
+  },
+  "devDependencies": {}
 }
